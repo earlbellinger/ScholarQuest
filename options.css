@@ -1,0 +1,187 @@
+body {
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+    margin: 0px;
+    padding: 0px;
+    width: 650px;
+}
+
+#page {
+    display: inline-block;
+    width: 650px;
+    height: fit-content;
+}
+
+div {
+    background: #fff;
+    height: fit-content;
+}
+
+div#outer {
+    vertical-align: bottom;
+    display: table-cell;
+    margin: 0;
+    padding: 0;
+}
+
+div#container {
+    bottom: 0;
+    right: 0;
+    padding-top: 10px;
+    padding: 0;
+    width: 650px;
+    overflow: auto;
+    text-align: center;
+}
+
+h1 {
+    font-weight: 100;
+    font-size: 4.5em;
+    margin-bottom: 0;
+    margin-top: 0em;
+}
+
+h2 {
+    font-weight: 300;
+    font-size: 0.9em;
+    color: #999;
+    margin-bottom: 15px;
+}
+
+div#reset {
+    font-weight: 500;
+    text-align: right;
+}
+
+div#scholar {
+    text-align: right;
+    float: right;
+    padding-top: 5px;
+    padding-right: 10px;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+p#achievementDate {
+    padding-left: 100px;
+    font-size: 8px;
+    vertical-align: bottom;
+}
+
+a {
+    color: #444;
+    font-weight: 300;
+}
+
+div#badges {
+    padding-right: 20px;
+    text-align: center;
+}
+
+.avatar {
+    width: 100px;
+    text-align: left;
+}
+
+.badge {
+    position: relative;
+    width: 50%;
+    height: 110px;
+    float: left;
+}
+
+.badgeImage {
+    width: 64px;
+    height: 70px;
+    border: 1px solid;
+    border-color: #000000;
+    float: left;
+    margin: 20px;
+    margin-top: 1px;
+    margin-right: 7px;
+}
+
+.badgeContent {
+    text-align: left;
+}
+
+div#badgeBottom {
+    position: absolute;
+    bottom: 27px;
+    right: 0;
+    font-weight: 300;
+    width: 50px;
+    font-size: 10px;
+    margin-right: 10px;
+}
+
+div#nextLevel {
+    width: 198px;
+    height: 10px;
+    margin: 0px;
+    padding: 0px;
+    float: right;
+    text-align: right;
+}
+
+div#nextLevelRight {
+}
+
+div#nextLevelLeft {
+    text-align: left;
+    float: left;
+}
+
+.progress {
+    width: 209px;
+    height: 7px;
+    border: 1px solid #000;
+    float: right;
+    margin: 0px;
+    padding: 0px;
+}
+
+.progressInner {
+    float: left;
+    height: 7px;
+    background-color: #990000; 
+}
+
+.scholarProgress {
+    //background: #fff;
+    vertical-align: bottom;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 1px;
+    float: right;
+    margin: 0px;
+    padding: 0px;
+}
+
+.scholarProgressInner {
+    position: absolute;
+    bottom: 0;
+    float: left;
+    height: 1px;
+    background-color: #990000; 
+}
+
+div#scholarEXP {
+    clear: both;
+    position: absolute; 
+    bottom: 0; 
+    right: 298px; 
+    font-weight: 300;
+    font-size: 0.7em;
+    color: #999;
+    margin: 5px;
+}
+
+.clear {
+  overflow: auto;
+  clear: both;
+}

@@ -1,0 +1,40 @@
+div {
+    background: #121212;
+    color: #ebebeb;
+}
+
+h1 {
+    color: #fff;
+}
+
+h2 {
+    color: #999;
+}
+
+p {
+    
+}
+
+a {
+    color: #c2c2c2;
+}
+
+.badgeImage {
+    border-color: #fff;
+}
+
+.progress {
+    border: 1px solid #fff;
+}
+
+.progressInner {
+    background-color: #990000; 
+}
+
+.scholarProgressInner {
+    background-color: #990000; 
+}
+
+div#scholarEXP {
+    color: #999;
+}

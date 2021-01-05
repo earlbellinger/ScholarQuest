@@ -1,0 +1,40 @@
+{
+  "name": "ScholarQuest",
+  "description" : "Unlock achievements with your academic success and view them on Google Scholar!",
+  "version": "0.1",
+  "manifest_version": 2,
+  "icons": { "16": "assets/images/icon16.png",
+             "48": "assets/images/icon48.png",
+            "128": "assets/images/icon128.png" },
+  "permissions": [
+    "storage",
+    "http://fonts.googleapis.com/",
+    "https://fonts.googleapis.com/"
+  ],
+  "background": {
+    "scripts": ["common.js", "background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://scholar.google.com/citations*"],
+      "js": [
+        "assets/js/jquery.min.js",
+        "assets/js/parse-full-name.js",
+        "common.js", 
+        "check.js"]
+    }
+  ],
+  "browser_action": {
+	"default_popup": "options.html"
+  },
+  "web_accessible_resources": [
+    "common.js",
+    "notification.css",
+    "assets/images/icon16.png",
+    "options.css",
+    "options.js",
+    "optionsFrame.html",
+    "options.html",
+    "container.css"
+  ]
+}
