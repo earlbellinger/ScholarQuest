@@ -3,7 +3,7 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 });
 
 var settings = ['user', 'name', 'dark']
-var achievs = ['citations',  'hindex',  'papers',  'maxcite',  'solo',  'first']
+var achievs = ['papers', 'citations', 'hindex', 'maxcite', 'first', 'solo']
 var Adicts = []
 for (ii in achievs) Adicts.push('A'+achievs[ii])
 
@@ -27,6 +27,30 @@ chrome.storage.sync.get(settings.concat(achievs).concat(Adicts), function(obj) {
         badges.innerHTML = "Visit your Scholar profile to start tracking achievements";
     } else {
         
+        for (ii=0; ii<achievs.length; ii++) {
+            var Adict = obj[Adicts[ii]]
+            if (Adict !== {}) {
+                var achiev = achievs[ii]
+                $('#badges').append(showBadge(achiev, obj[achiev], Adict))
+                
+                c = document.getElementById('c'+achiev);
+                ctx = c.getContext('2d');
+                c.style.width = 64 + "px"
+                c.style.height = 72 + "px"
+                c.width = 400
+                c.height = 400
+                ctx.scale(10,10)
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+                //ctx.translate(-0.25, -0.25)
+                sierpinski(ctx, 0, 40, 20, 0, 40, 40, Adict.level, obj.dark);
+                //ctx.translate(0.33, 10.25)
+                //ctx.fillText('LVL ' + Adict.level, 5, 15)
+                
+            }
+        }
+        
+        /*
         badges.innerHTML += (obj.papers > 0) ? 
             showBadge('Papers', obj.papers, obj.Apapers) : ""
         badges.innerHTML += (obj.citations > 0) ? 
@@ -40,6 +64,20 @@ chrome.storage.sync.get(settings.concat(achievs).concat(Adicts), function(obj) {
         badges.innerHTML += (obj.solo > 0) ? 
             showBadge('Solo Author', obj.solo, obj.Asolo) : ""
         //badges.innerHTML += "<footer class='clear'></footer>" // center badge?
+        */
+        
+        /*
+        $(document).ready(function () {
+            c = document.getElementById('cpapers');
+            ctx = c.getContext('2d');
+            c.style.width = 64 + "px"
+            c.style.height = 71 + "px"
+            c.width = 400
+            c.height = 400
+            ctx.scale(10,10)
+            sierpinski(ctx, 0, 40, 20, 0, 40, 40, obj.Apapers.level, obj.dark);
+        })
+        */
         
         var points = 0
         dicts = [obj.Acitations, obj.Ahindex, obj.Apapers, 
@@ -94,7 +132,7 @@ function showBadge(name, value, Adict) {
         progress = value < Adict.next ? (value/Adict.next)*100 : 100
         progress = progress == 0 ? 1 : progress
         return "<div class='badge' id='" + name + "'>"
-            + "  <div class='badgeImage'></div>"
+            + "  <div class='badgeImage'><canvas id='c" + name + "'></canvas></div>"
             + "  <div class='badgeContent'>"
             + "    <p><b>" + Adict.title + "</b></p>"
             + "    <p id='achievementDate' title='Achievement Date'>" 
@@ -114,5 +152,35 @@ function showBadge(name, value, Adict) {
             + "  </div>"
             + "</div>"
     }
+    
     return ""
+}
+
+function drawTriangle(ctx, x1, y1, x2, y2, x3, y3, color) {
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.lineTo(x3, y3);
+    ctx.fillStyle = color;
+    //ctx.fill();
+    ctx.strokeStyle = color;
+    ctx.stroke()
+}
+
+function sierpinski(ctx, x1, y1, x2, y2, x3, y3, n, dark) {
+    if(n > 0) {     
+        var x12 = (x1 + x2)/2;
+        var y12 = (y1 + y2)/2;
+        var x23 = (x2 + x3)/2;
+        var y23 = (y2 + y3)/2;
+        var x31 = (x3 + x1)/2;
+        var y31 = (y3 + y1)/2;
+        
+        var color = (n % 2) ? (dark ? '#ebebeb' : '#333') : '#990000' 
+        
+        drawTriangle(ctx, x31, y31, x12, y12, x23, y23, color);
+        sierpinski(ctx, x1, y1, x12, y12, x31, y31, n-1, dark);
+        sierpinski(ctx, x2, y2, x12, y12, x23, y23, n-1, dark);
+        sierpinski(ctx, x3, y3, x31, y31, x23, y23, n-1, dark);
+    }
 }

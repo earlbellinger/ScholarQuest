@@ -95,9 +95,10 @@ div#badges {
 
 .badgeImage {
     width: 64px;
-    height: 70px;
-    border: 1px solid;
-    border-color: #000000;
+    height: 71px;
+    //border: 1px solid #000000;
+    border-right: 1px solid #000000;
+    border-bottom: 1px solid #000000;
     float: left;
     margin: 20px;
     margin-top: 1px;
@@ -151,7 +152,6 @@ div#nextLevelLeft {
 }
 
 .scholarProgress {
-    //background: #fff;
     vertical-align: bottom;
     position: absolute;
     bottom: 0;
@@ -174,7 +174,7 @@ div#scholarEXP {
     clear: both;
     position: absolute; 
     bottom: 0; 
-    right: 298px; 
+    width: 644px;
     font-weight: 300;
     font-size: 0.7em;
     color: #999;
@@ -184,4 +184,9 @@ div#scholarEXP {
 .clear {
   overflow: auto;
   clear: both;
+}
+
+canvas {
+    width: 64px;
+    height: 71px;
 }

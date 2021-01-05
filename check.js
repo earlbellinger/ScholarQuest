@@ -46,11 +46,10 @@ if (userPage !== null) {
             namediv = document.getElementById('gsc_prf_in')
             names = namediv.innerHTML.split('<button')[0]
             var name = parseFullName(names).first
-            //name = namediv.innerHTML.split(' ')[0]
             
             chrome.storage.sync.set({
-                "user": user,//url,
-                "name": name//.first
+                "user": user,
+                "name": name
             })
         }
         if (user === userPage) {
@@ -103,9 +102,6 @@ function checkAchievements() {
         // only checks to see that the surname matches the first author surname 
         // will miscount if publishing e.g. with family members 
         // could modify the page to have a clickable icon for first author papers 
-        //namediv = document.getElementById('gsc_prf_in')
-        //names = namediv.innerHTML.split('<button')[0].split(' ')
-        //surname = names[names.length-1]
         namediv = document.getElementById('gsc_prf_in')
         names = namediv.innerHTML.split('<button')[0]
         var name = parseFullName(names)
@@ -142,12 +138,12 @@ function checkAchievements() {
             notiAlerts.mouseleave(() => timeoutId = setTimeout(hideNoti, 1000))
             timeoutId = setTimeout(hideNoti, 6000)
             
-            check('citations', citations, citationAchievements)//Levels)
-            check('hindex',    hindex,    hindexAchievements)//Levels)
-            check('maxcite',   maxcite,   maxciteAchievements)//Levels)
-            check('first',     first,     firstAchievements)//Levels)
-            check('solo',      solo,      soloAchievements)//Levels)
-            check('papers',    papers,    paperAchievements)//Levels)
+            check('citations', citations, citationAchievements)
+            check('hindex',    hindex,    hindexAchievements)
+            check('maxcite',   maxcite,   maxciteAchievements)
+            check('first',     first,     firstAchievements)
+            check('solo',      solo,      soloAchievements)
+            check('papers',    papers,    paperAchievements)
             
         })
 }
@@ -200,28 +196,23 @@ function showNotification(name, Adict) {
     notiAlert.fadeIn(1000)
     notiAlert.mouseenter(() => notiAlert.stop(true, true).show())
     $("#"+name+".noti_close").click(() => notiAlert.stop(true, true).hide())
+    
+    //$(".notification").click(() => );
+    
+    
+    function toggle(tog) {
+        tog ? $("#scholarQuestWindow").show() : $("#scholarQuestWindow").hide()
+        $(document).on('click', '#scholarQuestButton', () => toggle(!tog));
+    }
+    $(document).on('click', '.notification', () => toggle(1));
 }
 
 function showBadge(name, Adict) {
     return "<div class='badge noti_left' id='" + name + "'>"
         + "  <div class='badgeImage'></div>"
         + "  <div class='badgeContent'>"
-        + "    <p><b>" + name + " Level " + Adict.level + "</b></p>"
-        + "    <p>Earned with " 
-        +        name.toLowerCase() + " &#8805; " + Adict.limit 
-        + "    </p>"
-        + "  </div>"
-        + "</div>"
-}
-/*
-function showBadge(name, Adict) {
-    return "<div class='badge noti_left' id='" + name + "'>"
-        + "  <div class='badgeImage'></div>"
-        + "  <div class='badgeContent'>"
         + "    <p><b>" + Adict.title + "</b></p>"
         + "    <p>"+Adict.description+"</p>"
-        + "    </div>"
         + "  </div>"
         + "</div>"
 }
-*/

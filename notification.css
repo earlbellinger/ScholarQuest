@@ -43,7 +43,7 @@
 
 .noti_close::after {
     display: inline-block;
-    content: "\00d7"; /* This will render the 'X' */
+    content: "\00d7"; 
 }
 
 
@@ -52,6 +52,7 @@
     width: 300px;
     float: left;
     font-family: 'Lato', sans-serif;
+    cursor: pointer;
 }
 
 .badgeImage {
