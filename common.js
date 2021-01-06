@@ -8,8 +8,8 @@ new points for scholar levels? (e.g. one for each citation)
 */
 
 function init() {
-	chrome.storage.sync.set(
-		{'user':       '',
+    chrome.storage.sync.set(
+        {'user':       '',
          'name':       '',
          'citations':   0,
          'hindex':      0,
@@ -25,13 +25,13 @@ function init() {
          'Afirst':     {},
          'dark':        0,
         },
-		openScholar()
+        openScholar()
     );
 }
 
 function openScholar() {
-	url = "https://scholar.google.com/citations?cstart=0&pagesize=10000"
-	chrome.tabs.create({'url': url});
+    url = "https://scholar.google.com/citations?cstart=0&pagesize=10000"
+    chrome.tabs.create({'url': url});
 }
 
 //citationLevels = [ 1, 10, 100, 1000, 10000, 100000, 1000000]
