@@ -10,9 +10,9 @@ new points for scholar levels? (e.g. one for each citation)
 function init() {
 	chrome.storage.sync.set(
 		{'user':       '',
-		 'name':       '',
-		 'citations':   0,
-		 'hindex':      0,
+         'name':       '',
+         'citations':   0,
+         'hindex':      0,
          'papers':      0,
          'maxcite':     0,
          'solo':        0,
@@ -24,7 +24,7 @@ function init() {
          'Asolo':      {},
          'Afirst':     {},
          'dark':        0,
-		},
+        },
 		openScholar()
     );
 }

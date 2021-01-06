@@ -4,6 +4,8 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 
 var settings = ['user', 'name', 'dark']
 var achievs = ['papers', 'citations', 'hindex', 'maxcite', 'first', 'solo']
+var labels = ['papers', 'citations', 'h-index', 
+    'most cited paper', 'first author', 'sole author']
 var Adicts = []
 for (ii in achievs) Adicts.push('A'+achievs[ii])
 
@@ -31,21 +33,42 @@ chrome.storage.sync.get(settings.concat(achievs).concat(Adicts), function(obj) {
             var Adict = obj[Adicts[ii]]
             if (Adict !== {}) {
                 var achiev = achievs[ii]
-                $('#badges').append(showBadge(achiev, obj[achiev], Adict))
+                $('#badges').append(showBadge(achiev, obj[achiev], Adict, labels[ii]))
                 
-                c = document.getElementById('c'+achiev);
-                ctx = c.getContext('2d');
-                c.style.width = 64 + "px"
-                c.style.height = 72 + "px"
-                c.width = 400
-                c.height = 400
-                ctx.scale(10,10)
-                ctx.lineCap = 'round';
-                ctx.lineJoin = 'round';
-                //ctx.translate(-0.25, -0.25)
-                sierpinski(ctx, 0, 40, 20, 0, 40, 40, Adict.level, obj.dark);
-                //ctx.translate(0.33, 10.25)
-                //ctx.fillText('LVL ' + Adict.level, 5, 15)
+                var contextDiv = 'c'+achiev
+                var c = document.getElementById(contextDiv);
+                var ctx = c.getContext('2d');
+                
+                
+                c.style.width = 71 + "px"
+                c.style.height = 71 + "px"
+                var dpr = window.devicePixelRatio || 1;
+                var rect = c.getBoundingClientRect();
+                c.width = rect.width * dpr;
+                c.height = rect.height * dpr;
+                ctx.scale(dpr, dpr);
+                
+                sierpinski(ctx, 
+                    0, c.height, 
+                    c.width/2, 0, 
+                    c.width, c.height, 
+                    Adict.level, obj.dark);
+                
+                $('#'+contextDiv).mouseover(() => {
+                        //alert($this.find('#'+contextDiv))
+                        var c = document.getElementById(contextDiv);
+                        var ctx = c.getContext('2d');
+                        ctx.clearRect(0, 0, c.width, c.height)
+                        sierpinski(ctx, 0, c.height, c.width/2, 0, c.width, c.height, 
+                            Adict.level-1, obj.dark);
+                    })
+                $('#'+contextDiv).mouseleave(() => {
+                        var c = document.getElementById(contextDiv);
+                        var ctx = c.getContext('2d');
+                        ctx.clearRect(0, 0, c.width, c.height)
+                        sierpinski(ctx, 0, c.height, c.width/2, 0, c.width, c.height, 
+                            Adict.level, obj.dark);
+                })
                 
             }
         }
@@ -127,12 +150,13 @@ chrome.storage.sync.get(settings.concat(achievs).concat(Adicts), function(obj) {
     }
 });
 
-function showBadge(name, value, Adict) {
+function showBadge(name, value, Adict, label) {
     if ('level' in Adict) {
         progress = value < Adict.next ? (value/Adict.next)*100 : 100
         progress = progress == 0 ? 1 : progress
         return "<div class='badge' id='" + name + "'>"
-            + "  <div class='badgeImage'><canvas id='c" + name + "'></canvas></div>"
+            + "  <div class='badgeImage'><canvas id='c" + name + "'></canvas>"
+            + "<div style='text-align: center; font-size: 10px'><b>LEVEL "+ Adict.level +"</b></div></div>"
             + "  <div class='badgeContent'>"
             + "    <p><b>" + Adict.title + "</b></p>"
             + "    <p id='achievementDate' title='Achievement Date'>" 
@@ -145,7 +169,7 @@ function showBadge(name, value, Adict) {
             + "          width: " + progress + "%'>"
             + "        </div>"
             + "      </div>"
-            + "      <div id='nextLevel'>" + name.toLowerCase() + ": " 
+            + "      <div id='nextLevel'>" + label + ": " 
             +          value + "/" + Adict.next 
             + "      </div>"
             + "    </div>"
@@ -158,13 +182,15 @@ function showBadge(name, value, Adict) {
 
 function drawTriangle(ctx, x1, y1, x2, y2, x3, y3, color) {
     ctx.beginPath();
+    //ctx.translate(0.5,0.5);
     ctx.moveTo(x1, y1);
     ctx.lineTo(x2, y2);
     ctx.lineTo(x3, y3);
+    //ctx.translate(-0.5,-0.5);
     ctx.fillStyle = color;
-    //ctx.fill();
-    ctx.strokeStyle = color;
-    ctx.stroke()
+    ctx.fill();
+    //ctx.strokeStyle = color;
+    //ctx.stroke();
 }
 
 function sierpinski(ctx, x1, y1, x2, y2, x3, y3, n, dark) {
