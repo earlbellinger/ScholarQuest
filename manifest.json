@@ -18,7 +18,6 @@
     {
       "matches": ["*://scholar.google.com/citations*"],
       "js": [
-        "assets/js/webfont.js",
         "assets/js/jquery.min.js",
         "assets/js/parse-full-name.js",
         "common.js", 
