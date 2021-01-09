@@ -86,6 +86,7 @@
     width: 16px;
     height: 16px;
     background-image: url('assets/images/icon16.png');
+    background-size: 16px 16px;
 }
 
 #scholarQuestWindow {

@@ -99,6 +99,7 @@ div#badges {
     //border: 1px solid #000000;
     border-right: 1px solid #000000;
     border-bottom: 1px solid #000000;
+    position: relative;
     float: left;
     margin: 20px;
     margin-top: 1px;
@@ -186,7 +187,18 @@ div#scholarEXP {
   clear: both;
 }
 
+div#level {
+    text-align: center; 
+    font-size: 10px; 
+    position: absolute; 
+    bottom: -15px; 
+    width: 100%
+}
+
 canvas {
     width: 64px;
     height: 71px;
+    position: absolute; 
+    top: 0;
+    left: 0;
 }
