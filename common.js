@@ -1,5 +1,6 @@
 /* todo: 
-better names for scholar levels 
+
+names for scholar levels 
 notifications for scholar levels? 
 new points for scholar levels? (e.g. one for each citation) 
 */
