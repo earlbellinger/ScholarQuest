@@ -3,7 +3,6 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 });
 
 var settings = ['user', 'name', 'dark']
-var achievs = ['papers', 'citations', 'hindex', 'maxcite', 'first', 'solo']
 var labels = ['papers', 'citations', 'h-index', 
     'most cited paper', 'first author', 'sole author']
 var Adicts = []
@@ -29,18 +28,13 @@ chrome.storage.sync.get(settings.concat(achievs).concat(Adicts), function(obj) {
         badges.innerHTML = "Visit your Scholar profile to start tracking achievements";
     } else {
         
-        
-        //color = '#990000'
-        //colors = ['#990000', '#fff', '#594186', '#4fa9af', '#fdd884', '#f99254']
-        colors = ['#9e0142', '#4b60b2', '#3695b8', '#ff974f', '#fff', '#92d5bb', ]
-        flips  = [0, 0, 0, 1, 1, 1]
         // show badges
         for (ii=0; ii<achievs.length; ii++) {
             var Adict = obj[Adicts[ii]]
             if (Adict !== {}) {
                 var achiev = achievs[ii]
-                makeBadge(achiev, obj[achiev], Adict, labels[ii], obj.dark, colors[ii],
-                    flips[ii])
+                makeBadge(achiev, obj[achiev], Adict, labels[ii], 
+                    obj.dark, badgeColors[ii], flips[ii])
             }
         }
         
@@ -53,11 +47,6 @@ chrome.storage.sync.get(settings.concat(achievs).concat(Adicts), function(obj) {
                 points += dicts[ii]['points']
             }
         }
-        
-        // 6*x*(x-1)/2+1
-        var scholarLevels = [0, 1, 7, 19, 37, 61, 91, 127, 169, 217, 271, 331, 397]
-        var scholarTitles = ["Novice", "Starting Scholar", "Apprentice", 
-            "Adept Academic", "Erudite", "Sage", "Master", "Legend"]
         
         var level;
         next = null
@@ -98,7 +87,7 @@ function makeBadge(achiev, value, Adict, label, dark, color='#990000', flip=0) {
     
     console.log('achiev:', achiev)
     
-    var level = Adict.level + 5
+    var level = Adict.level 
     level = level > 7 ? 7 : level
     
     var contextDiv = 'c'+achiev
@@ -160,7 +149,6 @@ function showBadge(name, value, Adict, label, color) {
         progress = progress == 0 ? 1 : progress
         return "<div class='badge' id='" + name + "'>"
             + "  <div class='badgeImage'>"
-            + "<canvas id='c" + name + "L'></canvas>"
             + "<canvas id='c" + name + "2'></canvas>"
             + "<canvas id='c" + name + "'></canvas>"
             + "<div id='level'><b>LEVEL "+ Adict.level +"</b></div></div>"
@@ -187,49 +175,4 @@ function showBadge(name, value, Adict, label, color) {
     }
     
     return ""
-}
-
-function drawTriangle(ctx, x1, y1, x2, y2, x3, y3, color) {
-    ctx.beginPath();
-    ctx.moveTo(x1, y1);
-    ctx.lineTo(x2, y2);
-    ctx.lineTo(x3, y3);
-    ctx.fillStyle = color;
-    ctx.fill();
-    ctx.lineWidth = 0.66;
-    
-    ctx.strokeStyle = '#000';
-    ctx.stroke();
-}
-
-function sierpinski(ctx, x1, y1, x2, y2, x3, y3, n, dark, colorBit=1, baseColor='#990000') {
-    if(n > 0) {     
-        var x12 = (x1 + x2)/2;
-        var y12 = (y1 + y2)/2;
-        var x23 = (x2 + x3)/2;
-        var y23 = (y2 + y3)/2;
-        var x31 = (x3 + x1)/2;
-        var y31 = (y3 + y1)/2;
-        
-        //var color = (colorBit) ? (dark ? '#ebebeb' : '#333') : '#990000' 
-        var color 
-        if (colorBit) {
-            if (dark) {
-                color = baseColor //'#ebebeb'
-            } else {
-                color = '#333'
-            }
-        } else {
-            if (dark) {
-                color = '#333'//'#ebebeb'
-            } else {
-                color = baseColor 
-            }
-        }
-        
-        drawTriangle(ctx, x31, y31, x12, y12, x23, y23, color);
-        sierpinski(ctx, x1, y1, x12, y12, x31, y31, n-1, dark, !colorBit, baseColor);
-        sierpinski(ctx, x2, y2, x12, y12, x23, y23, n-1, dark, !colorBit, baseColor);
-        sierpinski(ctx, x3, y3, x31, y31, x23, y23, n-1, dark, !colorBit, baseColor);
-    }
 }

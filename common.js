@@ -1,11 +1,17 @@
 /* todo: 
-add badges 
-put badges into notifications 
-
-names for scholar levels 
+better names for scholar levels 
 notifications for scholar levels? 
 new points for scholar levels? (e.g. one for each citation) 
 */
+
+const achievs = ['papers', 'citations', 'hindex', 'maxcite', 'first', 'solo']
+const badgeColors = ['#9e0142', '#4b60b2', '#3695b8', '#ff974f', '#92d5bb', '#fff']
+const flips = [0, 0, 0, 1, 1, 1]
+
+// 6*x*(x-1)/2+1
+const scholarLevels = [0, 1, 7, 19, 37, 61, 91, 127, 169, 217, 271, 331, 397]
+const scholarTitles = ["Novice", "Starting Scholar", "Apprentice", 
+    "Adept", "Erudite", "Sage", "Master", "Legend"]
 
 function init() {
     chrome.storage.sync.set(
@@ -24,6 +30,7 @@ function init() {
          'Asolo':      {},
          'Afirst':     {},
          'dark':        0,
+         'firstLoad':   1,
         },
         openScholar()
     );
@@ -35,7 +42,7 @@ function openScholar() {
 }
 
 //citationLevels = [ 1, 10, 100, 1000, 10000, 100000, 1000000]
-citationAchievements = [{
+const citationAchievements = [{
         "title": "Joined the Conversation",
         "description": "Get your first citation",
         "amount": 1, 
@@ -67,7 +74,7 @@ citationAchievements = [{
 ]
 
 //maxciteLevels  = [10, 50, 100,  200,   500, 1000, 10000, 100000]
-maxciteAchievements = [{
+const maxciteAchievements = [{
         "title": "Not for Naught",
         "description": "Get 10 citations on a single publication",
         "amount": 10, 
@@ -103,7 +110,7 @@ maxciteAchievements = [{
 ]
 
 //paperLevels    = [ 1, 2, 5, 10, 25, 50, 100, 200, 500, 1000, 10000]
-paperAchievements = [{
+const paperAchievements = [{
         "title": "The Journey Begins",
         "description": "Publish your first paper",
         "amount": 1, 
@@ -147,7 +154,7 @@ paperAchievements = [{
 ]
 
 //firstLevels    = [1, 2, 5, 10, 15, 25, 50, 100, 250, 1000]
-firstAchievements = [{
+const firstAchievements = [{
         "title": "Scribe",
         "description": "Publish a paper as first author",
         "amount": 1, 
@@ -187,7 +194,7 @@ firstAchievements = [{
 ]
 
 //soloLevels    = [1, 2, 5, 10, 15, 25, 50, 100, 250, 1000]
-soloAchievements = [{
+const soloAchievements = [{
         "title": "Flying Solo",
         "description": "Publish alone",
         "amount": 1, 
@@ -223,7 +230,7 @@ soloAchievements = [{
 ]
 
 //hindexLevels   = [ 2,   5,   10,    15,   25,  50, 75, 100, 200, 300, 500]
-hindexAchievements = [{
+const hindexAchievements = [{
         "title": "Two for Two",
         "description": "Publish two papers with at least two citations each",
         "amount": 2, 
@@ -266,3 +273,51 @@ hindexAchievements = [{
     + first   * 100
     + papers  * 100
 */
+
+
+function drawTriangle(ctx, x1, y1, x2, y2, x3, y3, color) {
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.lineTo(x3, y3);
+    ctx.fillStyle = color;
+    ctx.fill();
+    ctx.lineWidth = 0.66;
+    
+    ctx.lineTo(x1, y1);
+    
+    ctx.strokeStyle = '#000';
+    ctx.stroke();
+}
+
+function sierpinski(ctx, x1, y1, x2, y2, x3, y3, n, dark, colorBit=1, baseColor='#990000') {
+    if(n > 0) {     
+        var x12 = (x1 + x2)/2;
+        var y12 = (y1 + y2)/2;
+        var x23 = (x2 + x3)/2;
+        var y23 = (y2 + y3)/2;
+        var x31 = (x3 + x1)/2;
+        var y31 = (y3 + y1)/2;
+        
+        //var color = (colorBit) ? (dark ? '#ebebeb' : '#333') : '#990000' 
+        var color 
+        if (colorBit) {
+            if (dark) {
+                color = baseColor //'#ebebeb'
+            } else {
+                color = '#333'
+            }
+        } else {
+            if (dark) {
+                color = '#333'//'#ebebeb'
+            } else {
+                color = baseColor 
+            }
+        }
+        
+        drawTriangle(ctx, x31, y31, x12, y12, x23, y23, color);
+        sierpinski(ctx, x1, y1, x12, y12, x31, y31, n-1, dark, !colorBit, baseColor);
+        sierpinski(ctx, x2, y2, x12, y12, x23, y23, n-1, dark, !colorBit, baseColor);
+        sierpinski(ctx, x3, y3, x31, y31, x23, y23, n-1, dark, !colorBit, baseColor);
+    }
+}

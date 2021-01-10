@@ -93,7 +93,7 @@ function checkAchievements() {
     first   = 0
     var paperTable = document.getElementById('gsc_a_t')
     if (paperTable !== null) {
-        var nodes   = paperTable.querySelectorAll('td')
+        var nodes = paperTable.querySelectorAll('td')
         
         papers  = nodes.length/4
         maxcite = nodes[2].textContent
@@ -190,15 +190,60 @@ function showNotification(name, Adict) {
         + '</div>'
     );
     
+    
+    const color = badgeColors[achievs.indexOf(name)]
+    var dark = 0
+    var level = Adict.level 
+    level = level > 7 ? 7 : level
+    
+    var contextDiv = 'c'+name
+    var c = document.getElementById(contextDiv);
+    var ctx = c.getContext('2d');
+    var dpr = window.devicePixelRatio || 1;
+    var rect = c.getBoundingClientRect();
+    c.style.width = 71 + "px"
+    c.style.height = 71 + "px"
+    c.width = rect.width * dpr;
+    c.height = rect.height * dpr;
+    ctx.scale(dpr, dpr);
+    sierpinski(ctx, 
+        0, 0, 
+        c.width/2, c.height, 
+        c.width, 0, 
+        level, dark, 1, color);
+    ctx.textAlign = "center";
+    ctx.font = dark ? 'normal 600 16px sans-serif' : 'normal 600 16px sans-serif'
+    ctx.fillStyle = dark && flip ? '#000' : '#ebebeb' 
+    ctx.fillText(name.substr(0,1).toUpperCase(), (c.width/2), c.height/2*0.85)
+    
+    $('#c'+name).hide()
+    
+    var contextDiv2 = 'c'+name+'2'
+    var c2 = document.getElementById(contextDiv2);
+    var ctx2 = c2.getContext('2d');
+    c2.style.width = 71 + "px"
+    c2.style.height = 71 + "px"
+    c2.width = rect.width * dpr;
+    c2.height = rect.height * dpr;
+    ctx2.scale(dpr, dpr);
+    sierpinski(ctx2, 
+        0, 0, 
+        c.width/2, c.height, 
+        c.width, 0, 
+        level-1, dark, 1, color);
+    ctx2.textAlign = "center";
+    ctx2.font = dark ? 'normal 600 16px sans-serif' : 'normal 600 16px sans-serif'
+    ctx2.fillStyle = dark && flip ? '#000' : '#ebebeb' 
+    ctx2.fillText(name.substr(0,1).toUpperCase(), (c2.width/2), c2.height/2*0.85)
+    
+    
+    $('#c'+name).delay(($(".noti").length-1)*500+250).fadeIn(1000)
+    
     var notiAlert = $("#"+name+".noti")
     notiAlert.hide()
-    notiAlert.delay(($(".noti").length-1)*500)
-    notiAlert.fadeIn(1000)
+    notiAlert.delay(($(".noti").length-1)*500).fadeIn(1000)
     notiAlert.mouseenter(() => notiAlert.stop(true, true).show())
     $("#"+name+".noti_close").click(() => notiAlert.stop(true, true).hide())
-    
-    //$(".notification").click(() => );
-    
     
     function toggle(tog) {
         tog ? $("#scholarQuestWindow").show() : $("#scholarQuestWindow").hide()
@@ -209,9 +254,12 @@ function showNotification(name, Adict) {
 
 function showBadge(name, Adict) {
     return "<div class='badge noti_left' id='" + name + "'>"
-        + "  <div class='badgeImage'></div>"
+        + "  <div class='badgeImage'>"
+        + "<canvas id='c" + name + "2'></canvas>"
+        + "<canvas id='c" + name + "'></canvas>"
+        + "</div>"
         + "  <div class='badgeContent'>"
-        + "    <p><b>" + Adict.title + "</b></p>"
+        + "    <p style='padding-bottom: 5px'><b>" + Adict.title + "</b></p>"
         + "    <p>"+Adict.description+"</p>"
         + "  </div>"
         + "</div>"
