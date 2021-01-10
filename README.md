@@ -4,4 +4,5 @@ Academia gamified! Gain experience, unlock achievements, and level up when you c
 It's a chrome extension that tracks the data on your Google Scholar profile page and gives achievements when you reach certain milestones. 
 
 Example:
+
 ![ScholarQuest example](ScholarQuest.png)
