@@ -5,4 +5,6 @@ It's a chrome extension that tracks the data on your Google Scholar profile page
 
 Example:
 
-![ScholarQuest example](ScholarQuest.png)
+<p align="center" width="100%">
+    <img width="33%" src="ScholarQuest.png" alt="ScholarQuest example"> 
+</p>
