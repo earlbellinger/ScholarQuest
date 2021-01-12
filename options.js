@@ -89,6 +89,10 @@ function makeBadge(achiev, value, Adict, label, dark, color='#990000', flip=0) {
     
     var level = Adict.level 
     level = level > 7 ? 7 : level
+    level2 = level > 4 ? 4 : level-1
+    //if (dark) {
+    //    level2 = level > 2 ? 2 : level-1
+    //}
     
     var contextDiv = 'c'+achiev
     var c = document.getElementById(contextDiv);
@@ -122,7 +126,7 @@ function makeBadge(achiev, value, Adict, label, dark, color='#990000', flip=0) {
         0, 0, 
         c.width/2, c.height, 
         c.width, 0, 
-        level-1, dark, 1, color);
+        level2, dark, 1, color);
     ctx2.textAlign = "center";
     ctx2.font = dark ? 'normal 600 16px sans-serif' : 'normal 600 16px sans-serif'
     ctx2.fillStyle = dark && flip ? '#000' : '#ebebeb' 

@@ -2,11 +2,17 @@
 
 names for scholar levels 
 notifications for scholar levels? 
-new points for scholar levels? (e.g. one for each citation) 
+new points for scholar levels? (e.g. one for each citation) such as:
+    citations * 1
+    + hindex  * 100
+    + maxcite * 2
+    + solo    * 50
+    + first   * 100
+    + papers  * 100
 */
 
 const achievs = ['papers', 'citations', 'hindex', 'maxcite', 'first', 'solo']
-const badgeColors = ['#9e0142', '#4b60b2', '#3695b8', '#ff974f', '#92d5bb', '#fff']
+const badgeColors = ['#9e0142', '#4b60b2', '#3695b8', '#92d5bb', '#ff974f', '#fff']
 const flips = [0, 0, 0, 1, 1, 1]
 
 // 6*x*(x-1)/2+1
@@ -266,17 +272,7 @@ const hindexAchievements = [{
     }
 ]
 
-/*
-    citations * 1
-    + hindex  * 100
-    + maxcite * 2
-    + solo    * 50
-    + first   * 100
-    + papers  * 100
-*/
-
-
-function drawTriangle(ctx, x1, y1, x2, y2, x3, y3, color) {
+function drawTriangle(ctx, x1, y1, x2, y2, x3, y3, color, dark) {
     ctx.beginPath();
     ctx.moveTo(x1, y1);
     ctx.lineTo(x2, y2);
@@ -285,9 +281,10 @@ function drawTriangle(ctx, x1, y1, x2, y2, x3, y3, color) {
     ctx.fill();
     ctx.lineWidth = 0.66;
     
-    ctx.lineTo(x1, y1);
-    
-    ctx.strokeStyle = '#000';
+    if (color != '#fff') {
+        ctx.lineTo(x1, y1);
+    }
+    ctx.strokeStyle = dark ? '#2b2b2b' : '#000';
     ctx.stroke();
 }
 
@@ -316,7 +313,7 @@ function sierpinski(ctx, x1, y1, x2, y2, x3, y3, n, dark, colorBit=1, baseColor=
             }
         }
         
-        drawTriangle(ctx, x31, y31, x12, y12, x23, y23, color);
+        drawTriangle(ctx, x31, y31, x12, y12, x23, y23, color, dark);
         sierpinski(ctx, x1, y1, x12, y12, x31, y31, n-1, dark, !colorBit, baseColor);
         sierpinski(ctx, x2, y2, x12, y12, x23, y23, n-1, dark, !colorBit, baseColor);
         sierpinski(ctx, x3, y3, x31, y31, x23, y23, n-1, dark, !colorBit, baseColor);
