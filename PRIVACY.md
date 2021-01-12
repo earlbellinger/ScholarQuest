@@ -1,4 +1,4 @@
-PRIVACY POLICY
+# PRIVACY POLICY
 
 When this extension is installed, it will open your personal Google Scholar profile page and read the public data that you have displayed on it: your name, your Google Scholar profile ID number, the number of papers you have written, and the number of citations each of those papers has received. 
 
