@@ -96,7 +96,7 @@ function checkAchievements() {
         var nodes = paperTable.querySelectorAll('td')
         
         papers  = nodes.length/4
-        maxcite = nodes[2].textContent
+        maxcite = parseInt(nodes[2].textContent)
         
         // get surname 
         // only checks to see that the surname matches the first author surname 
@@ -112,6 +112,10 @@ function checkAchievements() {
             var authors = nodes[ii].innerText.split('\n')[1].split(',')
             if (authors.length == 1) solo += 1
             if (authors[0].includes(surname)) first += 1
+            
+            cite = parseInt(nodes[ii+1].textContent)
+            console.log(cite)
+            if (cite > maxcite) maxcite = cite 
         }
     }
     chrome.storage.sync.set({
