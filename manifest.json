@@ -1,7 +1,7 @@
 {
   "name": "ScholarQuest",
   "description" : "Unlock achievements with your academic success and view them on Google Scholar!",
-  "version": "1.04",
+  "version": "1.05",
   "manifest_version": 2,
   "icons": { "16": "assets/images/icon16.png",
              "48": "assets/images/icon48.png",

@@ -11,7 +11,8 @@ new points for scholar levels? (e.g. one for each citation) such as:
     + papers  * 100
 */
 
-const achievs = ['papers', 'citations', 'hindex', 'maxcite', 'first', 'solo']
+//const achievs = ['papers', 'citations', 'hindex', 'maxcite', 'first', 'solo']
+const achievs = ['papers', 'citations', 'first', 'maxcite', 'solo', 'hindex']
 const badgeColors = ['#9e0142', '#4b60b2', '#3695b8', '#92d5bb', '#ff974f', '#fff']
 const flips = [0, 0, 0, 1, 1, 1]
 
