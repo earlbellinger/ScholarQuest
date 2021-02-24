@@ -243,15 +243,15 @@ const soloAchievements = [{
 //hindexLevels   = [ 2,   5,   10,    15,   25,  50, 75, 100, 200, 300, 500]
 const hindexAchievements = [{
         "title": "Two for Two",
-        "description": "Publish two papers with at least two citations each",
+        "description": "Get two citations on two papers",
         "amount": 2, 
     }, {
         "title": "Five for Five",
-        "description": "Publish five papers with at least five citations each",
+        "description": "Get five citations on five papers",
         "amount": 5, 
     }, {
         "title": "Double-double",
-        "description": "Publish ten papers with at least ten citations each",
+        "description": "Get ten citations on ten papers",
         "amount": 10, 
     }, {
         "title": "Citation Hunter",
