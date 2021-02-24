@@ -55,6 +55,9 @@ chrome.storage.sync.get(settings.concat(achievs).concat(Adicts), function(obj) {
             if (points >= threshold) break;
             next = threshold
         }
+        if (level > scholarTitles.length - 1) {
+            level = scholarTitles.length - 1
+        }
         
         document.getElementById('level').innerHTML += 
             "Level "+level+"//"+scholarTitles[level] //"Intrepid Explorer"
@@ -83,6 +86,7 @@ chrome.storage.sync.get(settings.concat(achievs).concat(Adicts), function(obj) {
 });
 
 function makeBadge(achiev, value, Adict, label, dark, color='#990000', flip=0) {
+    $(function() {
     $('#badges').append(showBadge(achiev, value, Adict, label, color))
     
     console.log('achiev:', achiev)
@@ -145,6 +149,7 @@ function makeBadge(achiev, value, Adict, label, dark, color='#990000', flip=0) {
         clearInterval(timeout)
         elem.stop(true,true).show()
     })
+    });
 }
 
 function showBadge(name, value, Adict, label, color) {
@@ -155,13 +160,18 @@ function showBadge(name, value, Adict, label, color) {
             + "  <div class='badgeImage'>"
             + "<canvas id='c" + name + "2'></canvas>"
             + "<canvas id='c" + name + "'></canvas>"
-            + "<div id='level'><b>LEVEL "+ Adict.level +"</b></div></div>"
+            + "<div id='level' title='" + Adict.description + "'>"
+            + "<b>LEVEL "+ Adict.level +"</b></div></div>"
             + "  <div class='badgeContent'>"
-            + "    <p><b>" + Adict.title + "</b></p>"
+            + "    <p title='" + Adict.description + "'><b>" 
+            +        Adict.title 
+            + "    </b></p>"
             + "    <p id='achievementDate' title='Achievement Date'>" 
             +        Adict.date 
             + "    </p>"
-            + "    <p style='height-34px; vertical-align: bottom'>"+Adict.description+"</p>"
+            + "    <div style='height:34px; position: relative; margin-left: 100px'><span style='position: absolute; bottom: 0;'>"
+            +        Adict.nextDescription
+            + "    </span></div>"
             + "    <div id='badgeBottom' title='Progress to next level'>"
             + "      <div class='progress'>"
             + "        <div class='progressInner' style='"

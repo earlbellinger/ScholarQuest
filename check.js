@@ -74,13 +74,15 @@ function showAllPapers() {
         var showMoreButton = document.getElementById('gsc_bpf_more')
         if (showMoreButton.disabled) {
             clearInterval(clicker)
-            checkAchievements()
+            chrome.storage.sync.get(achievs, function(obj) {
+                checkAchievements(obj)
+            })
         }
         showMoreButton.click()
     }
 }
 
-function checkAchievements() {
+function checkAchievements(obj) {
     dataTable = document.getElementById('gsc_rsb_st')
     cells = dataTable.querySelectorAll("td");
     citations = cells[1].firstChild.data
@@ -118,13 +120,13 @@ function checkAchievements() {
             if (cite > maxcite) maxcite = cite 
         }
     }
-    chrome.storage.sync.set({
-            'citations': citations,
-            'hindex':    hindex,
-            'papers':    papers,
+    chrome.storage.sync.set({ // fix the "20 papers bug" from the show more button
+            'citations': citations, 
+            'hindex':    hindex, 
             'maxcite':   maxcite, 
-            'solo':      solo,
-            'first':     first,
+            'papers':    papers == 20 & obj.papers > 20 ? obj.papers : papers,
+            'solo':      papers == 20 & obj.papers > 20 ? obj.solo   : solo,
+            'first':     papers == 20 & obj.papers > 20 ? obj.first  : first,
         },
         function() {
             document.body.innerHTML += "\n<div class='notification'></div>"
@@ -157,14 +159,14 @@ function check(name, val, achievements) {
     for (ii = achievements.length - 1; ii >= 0; ii--) {
         achievement = achievements[ii]
         if (val >= achievement.amount) {
-            setAchievement(name, achievement, ii, next)
+            setAchievement(name, achievement, ii, next.amount, next.description)
             return;
         }
-        next = achievement.amount
+        next = achievement
     }
 }
 
-function setAchievement(name, achievement, index, next) {
+function setAchievement(name, achievement, index, next, nextDescription) {
     var key = 'A' + name
     chrome.storage.sync.get(key, function(obj) {
         var best = -1
@@ -175,6 +177,7 @@ function setAchievement(name, achievement, index, next) {
             var Adict = {
                 "title"  : achievement.title,
                 "description": achievement.description, 
+                "nextDescription": nextDescription,
                 "date"   : new Date().toISOString().slice(0, 10),
                 "next"   : next, 
                 "limit"  : achievement.amount,

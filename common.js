@@ -17,8 +17,11 @@ const flips = [0, 0, 0, 1, 1, 1]
 
 // 6*x*(x-1)/2+1
 const scholarLevels = [0, 1, 7, 19, 37, 61, 91, 127, 169, 217, 271, 331, 397]
-const scholarTitles = ["Novice", "Starting Scholar", "Apprentice", 
-    "Adept", "Erudite", "Sage", "Master", "Legend"]
+//const scholarTitles = ["Novice", "Starting Scholar", "Apprentice", 
+//    "Adept", "Erudite", "Sage", "Master", "Legend"]
+const scholarTitles = ["Iron", "Bronze", "Silver", 
+    "Gold", "Platinum", "Diamond",
+    "Challenger", "Master", "Grandmaster"]
 
 function init() {
     chrome.storage.sync.set(
@@ -83,35 +86,35 @@ const citationAchievements = [{
 //maxciteLevels  = [10, 50, 100,  200,   500, 1000, 10000, 100000]
 const maxciteAchievements = [{
         "title": "Not for Naught",
-        "description": "Get 10 citations on a single publication",
+        "description": "Get 10 citations on one paper",
         "amount": 10, 
     }, {
         "title": "A Useful Contribution",
-        "description": "Get 50 citations on a single publication",
+        "description": "Get 50 citations on one paper",
         "amount": 50, 
     }, {
         "title": "Important Work",
-        "description": "Get 100 citations on a single publication",
+        "description": "Get 100 citations on one paper",
         "amount": 100, 
     }, {
         "title": "Widely Used",
-        "description": "Get 200 citations on a single publication",
+        "description": "Get 200 citations on one paper",
         "amount": 200, 
     }, {
         "title": "A Staple of the Field",
-        "description": "Get 500 citations on a single publication",
+        "description": "Get 500 citations on one paper",
         "amount": 500, 
     }, {
         "title": "C.R.E.A.M.",
-        "description": "Get 1,000 citations on a single publication",
+        "description": "Get 1,000 citations on one paper",
         "amount": 1000, 
     }, {
         "title": "Landmark Work",
-        "description": "Get 10,000 citations on a single publication",
+        "description": "Get 10,000 citations on one paper",
         "amount": 10000, 
     }, {
         "title": "Common Knowledge",
-        "description": "Get 100,000 citations on a single publication",
+        "description": "Get 100,000 citations on one paper",
         "amount": 100000, 
     }
 ]
