@@ -276,7 +276,7 @@ const hindexAchievements = [{
     }
 ]
 
-function drawTriangle(ctx, x1, y1, x2, y2, x3, y3, color, dark) {
+function drawTriangle(ctx, x1, y1, x2, y2, x3, y3, color, dark, n=-1) {
     ctx.beginPath();
     ctx.moveTo(x1, y1);
     ctx.lineTo(x2, y2);
@@ -285,11 +285,15 @@ function drawTriangle(ctx, x1, y1, x2, y2, x3, y3, color, dark) {
     ctx.fill();
     ctx.lineWidth = 0.66;
     
+    //col = n!=1 ? '#000' : '#ffffff'
     if (color != '#fff') {
         ctx.lineTo(x1, y1);
+        ctx.strokeStyle = dark ? '#2b2b2b' : '#000';
+    } else {
+        ctx.strokeStyle = dark ? '#2b2b2b' : '#999';
     }
-    ctx.strokeStyle = dark ? '#2b2b2b' : '#000';
-    ctx.stroke();
+    
+    if (n != 1) ctx.stroke();
 }
 
 function sierpinski(ctx, x1, y1, x2, y2, x3, y3, n, dark, colorBit=1, baseColor='#990000') {
@@ -317,7 +321,7 @@ function sierpinski(ctx, x1, y1, x2, y2, x3, y3, n, dark, colorBit=1, baseColor=
             }
         }
         
-        drawTriangle(ctx, x31, y31, x12, y12, x23, y23, color, dark);
+        drawTriangle(ctx, x31, y31, x12, y12, x23, y23, color, dark, n);
         sierpinski(ctx, x1, y1, x12, y12, x31, y31, n-1, dark, !colorBit, baseColor);
         sierpinski(ctx, x2, y2, x12, y12, x23, y23, n-1, dark, !colorBit, baseColor);
         sierpinski(ctx, x3, y3, x31, y31, x23, y23, n-1, dark, !colorBit, baseColor);

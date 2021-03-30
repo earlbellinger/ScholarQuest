@@ -3,8 +3,7 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 });
 
 var settings = ['user', 'name', 'dark']
-var labels = ['papers', 'citations', 'h-index', 
-    'most cited paper', 'first author', 'sole author']
+var labels = ['papers', 'citations', 'first author', 'most cited paper', 'sole author', 'h-index']
 var Adicts = []
 for (ii in achievs) Adicts.push('A'+achievs[ii])
 
@@ -93,7 +92,7 @@ function makeBadge(achiev, value, Adict, label, dark, color='#990000', flip=0) {
     
     var level = Adict.level 
     level = level > 7 ? 7 : level
-    level2 = level > 4 ? 4 : level-1
+    level2 = level > 3 ? 3 : level-1
     //if (dark) {
     //    level2 = level > 2 ? 2 : level-1
     //}
