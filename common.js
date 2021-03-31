@@ -170,7 +170,7 @@ const firstAchievements = [{
         "description": "Publish a paper as first author",
         "amount": 1, 
     }, {
-        "title": "Sophomore Slump or Comeback of the Year",
+        "title": "Comeback of the Year",
         "description": "Publish two papers as first author",
         "amount": 2, 
     }, {

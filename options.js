@@ -168,7 +168,7 @@ function showBadge(name, value, Adict, label, color) {
             + "    <p id='achievementDate' title='Achievement Date'>" 
             +        Adict.date 
             + "    </p>"
-            + "    <div style='height:34px; position: relative; margin-left: 100px'><span style='position: absolute; bottom: 0;'>"
+            + "    <div style='height:34px; position: relative; margin-left: 100px; bottom:0'><span style='position: absolute; bottom: 0;'>"
             +        Adict.nextDescription
             + "    </span></div>"
             + "    <div id='badgeBottom' title='Progress to next level'>"
