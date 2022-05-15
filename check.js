@@ -105,7 +105,7 @@ function checkAchievements(obj) {
         // will miscount if publishing e.g. with family members 
         // could modify the page to have a clickable icon for first author papers 
         namediv = document.getElementById('gsc_prf_in')
-        names = namediv.innerHTML.split('<button')[0]
+        names = namediv.innerHTML.split('<a')[0]
         var name = parseFullName(names)
         var surname = name.last
         
