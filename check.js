@@ -11,13 +11,13 @@ if (userPage !== null) {
     var link = document.createElement('link')
     link.rel = 'stylesheet'
     link.type = 'text/css'
-    link.href = chrome.extension.getURL('notification.css') 
+    link.href = chrome.runtime.getURL('notification.css') 
     head.appendChild(link) 
     
     var link = document.createElement('link')
     link.rel = 'stylesheet'
     link.type = 'text/css'
-    link.href = chrome.extension.getURL('container.css') 
+    link.href = chrome.runtime.getURL('container.css') 
     head.appendChild(link) 
     
     document.body.innerHTML += 
@@ -26,7 +26,7 @@ if (userPage !== null) {
     $("#scholarQuestWindow").hide()
     
     var object = document.createElement('object')
-    object.data = chrome.extension.getURL('optionsFrame.html') 
+    object.data = chrome.runtime.getURL('optionsFrame.html') 
     object.id = 'badgePage'
     $("#scholarQuestInner").html(object);
     

@@ -1,18 +1,22 @@
 {
   "name": "ScholarQuest",
-  "description" : "Unlock achievements with your academic success and view them on Google Scholar!",
-  "version": "1.09",
-  "manifest_version": 2,
-  "icons": { "16": "assets/images/icon16.png",
-             "48": "assets/images/icon48.png",
-            "128": "assets/images/icon128.png" },
+  "description": "Unlock achievements with your academic success and view them on Google Scholar!",
+  "version": "1.10",
+  "manifest_version": 3,
+  "icons": {
+    "16": "assets/images/icon16.png",
+    "48": "assets/images/icon48.png",
+    "128": "assets/images/icon128.png"
+  },
   "permissions": [
-    "storage",
-    "http://fonts.googleapis.com/",
-    "https://fonts.googleapis.com/"
+    "storage"
+  ],
+  "host_permissions": [
+    "http://fonts.googleapis.com/*",
+    "https://fonts.googleapis.com/*"
   ],
   "background": {
-    "scripts": ["common.js", "background.js"]
+    "service_worker": "sw.js"
   },
   "content_scripts": [
     {
@@ -20,21 +24,25 @@
       "js": [
         "assets/js/jquery.min.js",
         "assets/js/parse-full-name.js",
-        "common.js", 
-        "check.js"]
+        "common.js",
+        "check.js"
+      ]
     }
   ],
-  "browser_action": {
-	"default_popup": "options.html"
+  "action": {
+    "default_popup": "options.html"
   },
-  "web_accessible_resources": [
-    "common.js",
-    "notification.css",
-    "assets/images/icon16.png",
-    "options.css",
-    "options.js",
-    "optionsFrame.html",
-    "options.html",
-    "container.css"
-  ]
+  "web_accessible_resources": [{
+    "resources": [
+      "common.js",
+      "notification.css",
+      "assets/images/icon16.png",
+      "options.css",
+      "options.js",
+      "optionsFrame.html",
+      "options.html",
+      "container.css"
+    ],
+    "matches": ["<all_urls>"]
+  }]
 }
